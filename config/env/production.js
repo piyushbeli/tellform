@@ -23,7 +23,8 @@ module.exports = {
         }
     },
     sessionCookie: {
-		secure: false,
+		httpOnly: false,
+		secure: true,
 		maxAge:  24 * 60 * 60 * 1000, // 24 hours
 		domain: process.env.BASE_URL || '.tellform.com'
 	},
