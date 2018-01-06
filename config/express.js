@@ -273,10 +273,10 @@ module.exports = function(db) {
 
 			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage){
 				res.clearCookie('userLang');
-				res.cookie('userLang', supportedLanguage, { maxAge: 90000, httpOnly: true });
+				res.cookie('userLang', supportedLanguage, { maxAge: 90000, httpOnly: false });
 			}
-		} else if(req.user && (!req.cookies.hasOwnProperty('userLang') || req.cookies['userLang'] !== req.user.language) ){
-			res.cookie('userLang', req.user.language, { maxAge: 90000, httpOnly: true });
+		} else if(req.user && (!req.cookies.hasOwnProperty('userLang') || req.cookies['userLang'] !== req.user.language && req.user.language) ){
+			res.cookie('userLang', req.user.language, { maxAge: 90000, httpOnly: false });
 		}
 		next();
 	});
