@@ -75,7 +75,7 @@ module.exports = function(db) {
 
 	if(config.socketUrl){
 		app.locals.socketUrl = config.socketUrl;
-	} 
+	}
 
 	app.locals.bowerJSFiles = config.getBowerJSAssets();
 	app.locals.bowerCssFiles = config.getBowerCSSAssets();
@@ -91,7 +91,7 @@ module.exports = function(db) {
 			var User = mongoose.model('User');
 			var subdomainPath = '/subdomain/';
 			var subdomains = req.subdomains;
-			
+
 			if (subdomains.slice(0, 4).join('.') + '' === '1.0.0.127') {
 				subdomains = subdomains.slice(4);
 			}
@@ -100,7 +100,7 @@ module.exports = function(db) {
 			if (!subdomains.length) {
 				return next();
 			}
-			
+
 			urlPath = url.parse(req.url).path.split('/');
 			if (urlPath.indexOf('static') > -1) {
 				urlPath.splice(1, 1);
@@ -271,12 +271,12 @@ module.exports = function(db) {
 		if(!req.user && supportedLanguage !== null){
 			var currLanguage = res.cookie('userLang');
 
-			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage){
+			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage || currLanguage != 'undefined'){
 				res.clearCookie('userLang');
-				res.cookie('userLang', supportedLanguage, { maxAge: 90000, httpOnly: false });
+				res.cookie('userLang', supportedLanguage, { maxAge: 90000, httpOnly: true });
 			}
 		} else if(req.user && (!req.cookies.hasOwnProperty('userLang') || req.cookies['userLang'] !== req.user.language && req.user.language) ){
-			res.cookie('userLang', req.user.language, { maxAge: 90000, httpOnly: false });
+			res.cookie('userLang', req.user.language, { maxAge: 90000, httpOnly: true });
 		}
 		next();
 	});
