@@ -269,7 +269,7 @@ module.exports = function(db) {
 		}
 
 		if(!req.user && supportedLanguage !== null){
-			var currLanguage = res.cookie('userLang');
+			var currLanguage = req.cookies['userLang'];
 
 			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage || currLanguage == 'undefined'){
 				res.clearCookie('userLang');
