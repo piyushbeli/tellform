@@ -117,7 +117,9 @@ exports.signup = function(req, res) {
 	var user = new User(req.body);
 
 	// Set language to visitor's language
-	user.language = req.cookies['userLang'] || 'en';
+	user.language = req.cookies['userLang'];
+	//pbeli: Somehow I guess client is setting the userLang to undefined so I am manually setting default language here also.
+	user.language = (!user.language || user.language == 'undefined') ? 'en' : user.language;
 
 	// Add missing user fields
 	user.provider = 'local';
