@@ -268,10 +268,10 @@ module.exports = function(db) {
 			supportedLanguage = containsAnySupportedLanguages(languages);
 		}
 
-		if(!req.user && supportedLanguage !== null){
+		if(!req.user && supportedLanguage != null){
 			var currLanguage = req.cookies['userLang'];
 
-			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage || currLanguage == 'undefined'){
+			if(currLanguage && currLanguage !== supportedLanguage || !currLanguage){
 				res.clearCookie('userLang');
 				res.cookie('userLang', supportedLanguage, { maxAge: 90000, httpOnly: true });
 			}

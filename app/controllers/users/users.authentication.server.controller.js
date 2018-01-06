@@ -36,7 +36,7 @@ var config_nev = function () {
 
 	    verificationURL: config.baseUrl+'/#!/verify/${URL}',
 	    transportOptions: config.mailer.options,
-	    
+
 	    verifySendMailCallback: function(err, info) {
 	      if (err) {
 	        throw err;
@@ -78,7 +78,7 @@ exports.validateVerificationToken = function(req, res){
 	    // redirect to resend verification email
 	    else {
 	    	return res.status(400).send( {message: 'Verification token is invalid or has expired'} );
-	    } 
+	    }
 	});
 };
 
@@ -117,7 +117,7 @@ exports.signup = function(req, res) {
 	var user = new User(req.body);
 
 	// Set language to visitor's language
-	user.language = req.cookies['userLang'];
+	user.language = req.cookies['userLang'] || 'en';
 
 	// Add missing user fields
 	user.provider = 'local';
@@ -161,7 +161,7 @@ exports.signup = function(req, res) {
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
-	
+
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
