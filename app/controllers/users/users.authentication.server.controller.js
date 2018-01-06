@@ -34,9 +34,9 @@ var config_nev = function () {
         emailAndUsernameUnique: true,
 	    expirationTime: 86400,  // 24 hours
 
-	    verificationURL: config.baseUrl + ':' + config.port +'/#!/verify/${URL}',
+	    verificationURL: config.baseUrl+'/#!/verify/${URL}',
 	    transportOptions: config.mailer.options,
-
+	    
 	    verifySendMailCallback: function(err, info) {
 	      if (err) {
 	        throw err;
@@ -78,7 +78,7 @@ exports.validateVerificationToken = function(req, res){
 	    // redirect to resend verification email
 	    else {
 	    	return res.status(400).send( {message: 'Verification token is invalid or has expired'} );
-	    }
+	    } 
 	});
 };
 
@@ -161,7 +161,7 @@ exports.signup = function(req, res) {
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
-
+	
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
